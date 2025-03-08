@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+	<link rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer" 
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+		integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="/>
+  	
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <style>
+        .start-50 {
+            left: 12% !important;  /* Set your custom horizontal position */
+            transform: translateX(-12%) !important; /* Adjust the position */
+        }
+        
+        .top-50 {
+            top: 2% !important;  /* Set your custom vertical position */
+            transform: translateY(-2%) !important; /* Adjust the position */
+        }
+    </style>
+</head>
+
+<div class="d-flex justify-content-center my-0" style="height: 100vh; width: 100vw; margin: 0; overflow: hidden;">
+    <div class="card shadow" style="border: none; height: 100%; margin: 0; width: 100%; overflow: hidden;">
+        <div class="position-relative" style="height: 100%; width: 100%;">
+            <!-- Video that covers the full screen -->
+            <video autoplay muted loop class="card-img-top" style="object-fit: cover; width: 100vw; height: 100vh; position: absolute; left: 0; top: 0;">
+                <source src="{% static '/images/7021892_Business_Growth_1920x1080.mp4' %}" type="video/mp4">
+            </video>
+
+            <!-- Text overlay -->
+            <span class="overlay-text position-absolute top-50 start-50" style="color: white; font-size: 2rem; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+                Welcome to Django Traders
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

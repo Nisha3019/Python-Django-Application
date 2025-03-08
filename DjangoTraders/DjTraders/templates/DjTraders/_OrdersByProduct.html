@@ -1,0 +1,47 @@
+{% block content %}
+
+<head>
+<style>
+
+	#ProductsRevenuePlot, #ProductsPlot {
+		border: 10px solid #000000; /* Thick black border */
+		padding: 20px; /* Add some space inside the border */
+		margin: 10px; /* Space between the plot and its surroundings */
+		border-radius: 15px; /* Rounded corners */
+	}
+
+	#AllOrdersByProduct {
+		margin: 20px; /* Space around the entire section */
+	}
+
+</style>
+</head>
+
+<div class="my-2" id="AllOrdersByProduct">
+	<div class="">
+		<h5 class="text-danger" style="font-weight:bold; text-shadow: #87ceeb 1px 0 10px;">
+			{{customer.customer_name}} Product Purchased 
+		</h5>
+	</div>
+	<div class="row">
+		<div class="col-12" id="ProductsRevenuePlot" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+			{{ProductsRevenuePlot|safe}}
+		</div>
+		
+		<div class="col-12" id="ProductsPlot" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+			{{ProductsPlot|safe}}
+		</div> 
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+	$(document).ready(function ()
+    {
+    });
+
+</script>
+
+{% endblock %}

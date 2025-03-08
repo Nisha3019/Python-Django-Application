@@ -1,0 +1,56 @@
+<!-- v2.1 Added form for Add/Edit Products. -->
+{% extends "base.html" %}
+{%load crispy_forms_tags %} 
+
+{% block content %}
+
+<head>
+    <style>
+    .form-control, .form-select{
+		width:50% !important;
+	}
+
+	.row.mx-5 {
+		background-color: #87ceeb;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+	}
+    </style>
+</head>
+
+<form method="POST">
+	{% csrf_token %}
+
+	<h3>Edit Product Form</h3>
+	{{form|crispy}} 
+
+	<div class="navbar">
+		<div></div>
+		<div>
+			<button type="submit" class="btn btn-light mt-3">
+				<i class="fa-regular fa-floppy-disk" style="color:darkgreen;"></i>
+				Save
+			</button>
+	
+			<a class="btn btn-light mt-3" href = "{% url 'DjTraders.Products' %}">
+				<i class="fa-solid fa-xmark" style="color: darkred;"></i>
+				Cancel 
+			</a>
+		</div>
+	</div>
+</form>
+
+<div>
+	<a href = "{% url 'DjTraders.Products' %}">
+		<button class="btn btn-light" style="background-color:#000080; color:white;">View Product List</button>
+	  </a>
+</div>
+
+
+{% if form.errors %}
+	<div class="alert alert-danger mt-5">
+		{{form.errors.title.as_text}}
+	</div>
+{% endif %}
+
+{% endblock %}

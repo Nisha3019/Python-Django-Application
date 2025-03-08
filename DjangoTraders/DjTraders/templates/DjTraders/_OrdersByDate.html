@@ -1,0 +1,117 @@
+{% block content %}
+
+<head>
+    <style>
+        #OrdersByDatePlot, #AnnualOrdersPlot {
+            border: 10px solid #000000;
+            padding: 20px; /* Add some space inside the border */
+            margin: 10px; /* Space between the plot and its surroundings */
+            border-radius: 15px; 
+        }
+
+        #AllOrders {
+            margin: 20px; /* Space around the entire section */
+        }
+
+        h5 {
+            font-weight: bold; /* Make the heading text bold */
+        }
+
+        .navbar {
+            background-color: #ffffff; /* White background for the navbar */
+            padding: 10px; /* Padding inside the navbar */
+        }
+    </style>
+</head>
+
+    <div class="my-2" id="AllOrders">
+        <!-- Search Bar -->
+        <div id="SearchBar" class="navbar small px-2 rounded-2 shadow">
+            <div>
+                <h5 class="text-danger" style="font-weight:bold; text-shadow: #87ceeb 1px 0 10px;">
+                    {{customer}} Orders 
+                    {% if selOrderYear %}
+                        in {{ selOrderYear }}
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="mx-2">
+                <span class="mx-1">Year</span>
+                <div>
+                    <select 
+                        name="selOrderYear" id="selOrderYear"
+                        value="{{ selOrderYear }}"
+                        class="form-select form-select-sm"
+                        onchange="RefreshOrdersInYearPlot()"> 
+                        <option value=""> All </option>
+                        {% for year in OrderYears %}
+                        <option value="{{ year.Year }}"
+                            {% if year.Year == selOrderYear|add:"0" %}
+                                selected="selected"
+                            {% endif %}> 
+                            {{ year.Year }} 
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="OrdersByDatePlot" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+                {{OrdersByDatePlot|safe}}
+            </div>
+            
+            <div class="col-12" id="AnnualOrdersPlot" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+                {{AnnualOrdersPlot|safe}}
+            </div> 
+        </div>
+    </div>
+
+</html>
+
+
+<script type="text/javascript">
+
+	$(document).ready(function ()
+    {
+    });
+
+	function RefreshOrdersInYearPlot(){
+		
+		var selOrderYear = $('#selOrderYear').val();
+
+		$.ajax({
+			
+			url: "{% url 'DjTraders.OrdersByDate' %}",
+			data: {
+				customer_id: {{customer.customer_id}},
+				selOrderYear: selOrderYear,
+			},
+
+			beforeSend: function () {
+			
+				$('#AllOrders').empty();
+				$('#AllOrders').html("Retrieving results.");
+			},
+
+			success: function(result) {
+				$('#AllOrders').empty();
+				$('#AllOrders').html(result);
+			},
+
+			error: function(){
+				$('#AllOrders').empty();
+				$('#AllOrders').html('An Error occurred in Request: {{request}}');
+			},
+
+			complete: function(){
+				$('#AllOrders').show();
+			},
+
+		});
+
+	}
+	
+</script>
+
+{% endblock %}

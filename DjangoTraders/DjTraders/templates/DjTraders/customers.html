@@ -1,0 +1,338 @@
+<!-- tell the page to "use" the base template -->
+{% extends "base.html" %}
+
+<!-- define the block content to be injected -->
+
+{% block content %}
+
+<head>
+	<style>
+
+		.form-control, .form-select{
+			width:100% !important;
+		} 
+
+		/* General Styles */
+		#SearchBar {
+		  border: 1px solid #ddd;
+		  padding: 20px;
+		  border-radius: 10px;
+		}
+	  
+		/* Button Styles */
+		.btn-light {
+		  background-color: #007bff;
+		  color: #fff;
+		  border: none;
+		  font-weight: bold;
+		  transition: all 0.3s ease;
+		}
+	  
+		.btn-light:hover {
+		  background-color: #0056b3;
+		  color: #fff;
+		  transform: scale(1.05);
+		}
+	  
+		.btn-warning {
+		  background-color: #ffc107;
+		  color: #fff;
+		  border: none;
+		  font-weight: bold;
+		}
+	  
+		.btn-warning:hover {
+		  background-color: #e0a800;
+		  transform: scale(1.05);
+		}
+	  
+		/* Dropdown Styles */
+		.form-select-sm {
+		  border: 1px solid #007bff;
+		  border-radius: 5px;
+		  color: #333;
+		  font-weight: 500;
+		  transition: border-color 0.3s ease;
+		}
+	  
+		.form-select-sm:focus {
+		  border-color: #0056b3;
+		  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+		}
+	  
+		/* Input Field Styles */
+		.form-control-sm {
+		  border: 1px solid #007bff;
+		  border-radius: 5px;
+		  transition: border-color 0.3s ease;
+		}
+	  
+		.form-control-sm:focus {
+		  border-color: #0056b3;
+		  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+		}
+	  
+		/* Icon Styles */
+		.fa-solid {
+		  margin-right: 5px;
+		}
+	  
+		/* Anchor Links Inside Buttons */
+		.btn a {
+		  text-decoration: none;
+		  color: inherit;
+		  font-weight: bold;
+		}
+	  
+		.btn a:hover {
+		  text-decoration: underline;
+		}
+
+	  </style>
+	  
+</head>
+
+<section id = "SearchBar" 
+		class="small px-2 rounded-2 shadow">
+	<form action="{% url 'DjTraders.Customers' %}">
+		<div class="navbar py-4">
+			<div class="nav">
+				<h5 class="ps-2 py-1 TextWhite">
+					<i class="fa-solid fa-users" style="color:#87ceeb;"></i>
+					Search Customers By:{{ srchCustomerName }} {{ srchContactName }} {{ srchCity }} {{ srchCountry }}
+				</h5>
+				<div class="mx-1">
+					<div class="px-1 TextWhite">Customer</div>
+					<input type="search"
+						class="form-control form-control-sm" 
+						name="srchCustomerName" id="srchCustomerName" 
+						width:"100%"
+						placeholder="Customer Name"
+						value="{{ srchCustomerName }}">
+				</div>
+
+				<div class="mx-3">
+					<div class="px-1 TextWhite">Contact</div>
+					<input type="search"
+						class="form-control form-control-sm" 
+						name="srchContactName" id="srchContactName" 
+						width:"100%"
+						placeholder="Contact Name"
+						value="{{ srchContactName }}">
+				</div>
+
+				<div class="mx-3">
+					<span class="mx-1 TextWhite">City</span>
+					<select name="srchCity" id="srchCity"
+					value="{{ srchCity }}"
+					class="form-select form-select-sm"
+					onchange="this.form.submit()"> 
+						<option value="">  
+
+						</option>
+						{% for city in Cities %}
+							<option 
+								value="{{ city.city }}"
+								{%if city.city == srchCity %}
+								selected="selected"
+								{% endif %}
+							> 
+								{{ city.city }} 
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+				
+				<div class="mx-3">
+					<span class="mx-1 TextWhite">Country</span>
+					<select name="srchCountry" id="srchCountry"
+					value="{{ srchCountry }}"
+					class="form-select form-select-sm"
+					onchange="this.form.submit()"> 
+						<option value="">  
+
+						</option>
+						{% for country in Countries %}
+							<option 
+								value="{{ country.country }}"
+								{%if country.country == srchCountry %}
+								selected="selected"
+								{% endif %}
+							> 
+								{{ country.country }} 
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="nav"> 
+				<button class="btn btn-light btn-sm mx-2" type="submit">
+					<i class="fa-solid fa-magnifying-glass p-1"></i>
+					Search
+				</button>
+				<button 
+					class="btn btn-light btn-sm mx-2" 
+					type=""
+					onclick = "ResetSearch()">
+					<i class="fa-solid fa-rotate" style="color: forestgreen"></i>
+					Reset
+				</button>
+			</div>
+		</div>
+
+		<div class="navbar">
+			<div></div>
+			<div>
+				<button class="btn btn-light" style="background-color:#87ceeb; color:white;">
+					<a href = {% url 'DjTraders.CustomerAdd'%}
+					class="text-dark text-decoration-none pe-4" 
+					title= "Add a new Customer"
+					style="cursor:pointer; font-weight:bold;">
+					<i class="fa-solid fa-user-plus" 
+						style="color:#000080;"></i>
+						Add Customer
+					</a>
+
+					<a href = {% url 'DjTraders.CustomersJSON'%}
+					class="text-dark text-decoration-none pe-4" 
+					title= "Customers"
+					style="cursor:pointer">
+					<i class="fa-solid fa-user-plus" 
+						style="color:steelblue"></i>
+					CustomerJSON
+					</a>
+
+			 		<a href = {% url 'DjTraders.TopCustomerOrders'%}
+					class="text-dark text-decoration-none pe-4" 
+					title= "Customers"
+					style="cursor:pointer">
+					<i class="fa-solid fa-user-plus" 
+						style="color:steelblue"></i>
+					Customer Orders Placed
+					</a>
+			</button>
+		</div>
+		</div>
+	</form>
+</section>
+
+<div class="shadow-sm small">
+	{% if customers %}
+	<table class="table table-hover order-column" id="CustomersTable" width="100%">
+		<thead>
+			<tr class="fs-6">
+				<th>Customer</th>
+				<th>Contact</th>
+				<th>Address</th>
+				<th>City</th>
+				<th>Postal Code</th>
+				<th>Country</th>
+				<th> View &nbsp;</th>
+				<th> Edit &nbsp;</th>
+				<th> Delete &nbsp;</th>
+			</tr>
+		</thead>
+
+		<tbody>
+	
+			{% for customer in customers %}
+			<tr>
+				<td>{{customer.customer_name}}</td>
+				<td>{{customer.contact_name}}</td>
+				<td>{{customer.address}}</td>
+				<td>{{customer.city}}</td>
+				<td>{{customer.postal_code}}</td>
+				<td>{{customer.country}}</td>
+				<td title="View Customer" class="mt-1">
+					<a 	href = {% url 'DjTraders.CustomerDetail' pk=customer.customer_id %}
+						class="">
+						<i class="fa-solid fa-eye fa-lg pt-2" style="color: #008000;"></i>
+					</a>
+				</td>
+			<!-- v2.1 Added Icon for Edit User -->
+				<td title="Edit Customer" class="mt-1">
+					<a 	href = {% url 'DjTraders.CustomerEdit' pk=customer.customer_id %}
+						class="">
+						<i class="fa-solid fa-user-pen fa-lg pt-2" style="color: #000080;"></i>
+					</a>
+				</td>
+
+				<td title="Delete Customer" class="mt-1">
+					<a 	href = {% url 'DjTraders.CustomerDelete' pk=customer.customer_id %}
+						class="">
+						<i class="fa-solid fa-user-xmark fa-lg pt-2" style="color: firebrick;"></i>
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	<table>	
+	{% else %}
+		No Customers Found
+	{% endif %}
+</div>
+
+
+<!-- added Django page button icons, bootstrap formatting -->
+{% if page_obj.has_other_pages %}
+<div class="pagination d-flex justify-content-end">
+	<div class="fw-bolder">
+		<span class="step-links">
+			{% if page_obj.has_previous %}
+				<a class="btn btn-light" title="First"
+					href="?page=1">
+					<i class="fa-solid fa-backward-step"></i>
+				</a>
+				<a class="btn btn-light" title="Previous"
+					href="?page={{ page_obj.previous_page_number }}">
+					<i class="fa-solid fa-caret-left"></i>
+				</a>
+			{% endif %}
+
+			<span class="current btn btn-light">
+				Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+			</span>
+
+			{% if page_obj.has_next %}
+				<a class="btn btn-light" title="Next"
+					href="?page={{ page_obj.next_page_number }}">
+					<i class="fa-solid fa-caret-right"></i>
+				</a>
+				<a class="btn btn-light" title="Last"
+					href="?page={{ page_obj.paginator.num_pages }}">
+					<i class="fa-solid fa-forward-step"></i>
+				</a>
+			{% endif %}
+		</span>
+	</div>
+</div>
+{% endif %}
+
+<!-- Added -->
+<script type="text/javascript">
+
+$(document).ready(function() {
+	//debugger;
+	MakeDataTable('CustomersTable');
+});
+
+
+function ResetSearch() {
+
+	    // Reset search input fields
+		const searchFields = document.querySelectorAll('input[type="search"]');
+		searchFields.forEach(field => field.value = '');
+
+		 // Reset dropdowns (select elements)
+		 const dropdowns = document.querySelectorAll('select');
+		 dropdowns.forEach(dropdown => dropdown.selectedIndex = 0);
+}
+
+document.getElementById('reset').addEventListener('click', ResetSearch);
+
+</script>
+
+{% endblock %}
+
+
+

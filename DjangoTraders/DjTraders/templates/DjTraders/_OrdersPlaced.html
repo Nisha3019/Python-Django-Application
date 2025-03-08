@@ -1,0 +1,105 @@
+<!-- When using partials, we DO NOT want to extend the base.html -->
+{% comment %} {% extends "base.html" %} {% endcomment %}
+
+<!-- define the block content to be injected -->
+{% block content %}
+
+<div id="Orders" class="container mt-5">
+    <h5 class="mb-4 text-danger" style="font-weight:bold; text-shadow: #87ceeb 1px 0 10px;">
+        {{customer.customer_name}} placed {{customer.NumberOfOrders}} Orders
+    </h5>
+    <div class="">
+        {% for order in customer.CustomerOrders %}
+            <div class="order-card mb-4">
+                <table class="table table-hover order-column" width="100%" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr>
+                            <th colspan="4" class="thead-dark p-3" style="font-weight:bolder; background-color: #58aff3;">
+                                {{forloop.counter}}. Order ID: {{order.order_id}} placed on {{order.order_date}}
+                            </th>
+                        </tr>
+                        <tr class="table-secondary">
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th class="text-end">Price</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anOrderDetail in order.AllOrderDetails %}
+                            <tr class="p-2" style="transition: background-color 0.3s;">
+                                <td style="font-weight:bold;">{{anOrderDetail.product.product_name}}</td>
+                                <td style="font-weight:bold;">{{anOrderDetail.quantity}}</td>
+                                <td class="text-end" style="font-weight:bold;">$ {{anOrderDetail.product.price}}</td>
+                                <td class="text-end" style="font-weight:bold;">$ {{anOrderDetail.Total}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="" style="font-weight:bolder; background-color: #58aff3;">
+                            <td colspan="3" class="text-end">Order Total</td>
+                            <td class="text-end">$ {{order.OrderTotal}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+	 <!-- View Customer List Button -->
+	 <div class="row mt-4">
+		<div class="col-2 text-center">
+			<a href="{% url 'DjTraders.Customers' %}">
+				<button class="btn btn-light" style="background-color:#000080; color:white;">View Customer List</button>
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+    .order-card {
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .order-column th, .order-column td {
+        padding: 15px;
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .order-column tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+    .order-column td {
+        font-size: 1em;
+        color: #555;
+    }
+
+    .thead-dark {
+        background-color: #343a40;
+    }
+
+    .table-dark {
+        background-color: #58aff3; ;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h5 {
+        color: #2c3e50;
+    }
+
+</style>
+
+{% endblock %}

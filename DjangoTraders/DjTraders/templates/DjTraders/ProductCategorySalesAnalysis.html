@@ -1,0 +1,47 @@
+
+ 
+{% block content %}
+ 
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light gray background */
+        }
+
+        #CategoryRevenuesPlot, #CategoryPlot {
+            border: 10px solid #1797f0; /* Thick blue border */
+            border-radius: 15px; /* Rounded corners */
+            padding:5px;
+        }
+
+        #ProductCategorySales {
+            margin: 20px; /* Space around the entire section */
+        }
+
+        h5 {
+            font-weight: bold; /* Bold heading text */
+        }
+    </style>
+</head>
+
+<div class="my-2" id="ProductCategorySales">
+        <div class="card-header py-2 my-2">
+            <h5 class="text-danger" style="font-weight:bold; text-shadow: #87ceeb 1px 0 10px;">
+                Category Sales Analysis
+            </h5>
+        </div>
+        <div class="row">
+            <div id="CategoryRevenuesPlot" class="col-6" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+            {{ CategoryRevenuesPlot|safe }}
+            </div>
+
+            <div id="CategoryPlot" class="col-6" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+            {{ CategoryPlot|safe }}
+            </div>
+        </div>
+</div>
+
+{% endblock %}

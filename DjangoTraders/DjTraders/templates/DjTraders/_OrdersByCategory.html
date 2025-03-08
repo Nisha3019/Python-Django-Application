@@ -1,0 +1,51 @@
+{% block content %}
+
+<head>
+	<style>
+	
+		#CategoryRevenuesPlot, #CategoryPlot {
+			border: 10px solid #000000; /* Thick black border */
+			padding: 20px; /* Add some space inside the border */
+			margin: 10px; /* Space between the plot and its surroundings */
+			border-radius: 15px; /* Rounded corners */
+		}
+	
+		#AllOrdersByProduct {
+			margin: 20px; /* Space around the entire section */
+		}
+	
+	</style>
+	</head>
+	
+
+<div class="my-2" id="AllOrdersByCategory">
+	<div>
+		<h5 class="text-danger" style="font-weight:bold; text-shadow: #87ceeb 1px 0 10px;">
+			{{customer}} Categories of Product Sales 
+		</h5>
+	</div>
+
+	<div class="row">
+		<div class="col-12" id="CategoryPlot" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+			{{CategoryRevenuesPlot|safe}}
+		</div>
+		
+		<div class="col-12" id="CategoryPlot" style="height:500px; background-color:#043363; border-style:groove; border-color:#1797f0;">
+			{{CategoryPlot|safe}}
+		</div> 
+	</div>
+
+	
+</div>
+
+
+
+<script type="text/javascript">
+
+	$(document).ready(function ()
+    {
+    });
+
+</script>
+
+{% endblock %}

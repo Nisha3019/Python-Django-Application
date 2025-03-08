@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+	<style>
+		h6, h5, .btn {
+			color:darkblue;
+		}
+
+		.btn{
+			font-weight:bold;
+		}
+
+		.card{
+			background-color: #87ceeb;
+		}
+		
+	</style>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+
+<form method="post">
+	{% csrf_token %}
+
+	 <div class="card">
+		<div class="card-header text-center h3" style="color:darkblue;">
+			Delete Customer 
+			<i class="fa-sharp fa-solid fa-question"></i>
+		</div>
+		<div class="card-body my-3 container">
+            <h6>Are you sure you want to delete the customer named: {{customer.customer_name}}  </h6>
+            <h6>All of the following related items will be deleted:</h6>
+            <h5>Summary : </h5>
+			<h6>Customer Name : {{customer.customer_name}}</h6>
+			<h6>Contact Name : {{customer.contact_name}}</h6>
+			<h6>Address: {{customer.address}}</h6>
+			<h6>City: {{customer.city}}</h6>
+			<h6>Country: {{customer.country}}</h6>
+
+			<div>
+				<a href = "{% url 'DjTraders.Customers' %}">
+					<button class="btn btn-light" style="background-color:#000080; color:white;">View Customer List</button>
+				  </a>
+			</div>
+		</div>
+
+		<div class="navbar d-flex justify-content-end">
+			<input type="submit" class="btn btn-danger mx-2" value="Delete" />
+
+			<a class="btn btn-light" href = "{% url 'DjTraders.Customers' %}">
+				<i class="fa-solid fa-xmark"></i>
+				Cancel 
+			</a>
+		</div>
+	</div>
+</form>
+
+{% endblock %}
+
