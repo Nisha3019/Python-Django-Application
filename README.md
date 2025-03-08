@@ -36,7 +36,7 @@ Before proceeding, make sure to installed the following :
   - Filter products based on categories or price ranges.
 
   **Visualizations**
-  -Visual graphs and charts to analyze customer and product data (e.g., annual sales, order placed, product purchased).
+  - Visual graphs and charts to analyze customer and product data (e.g., annual sales, order placed, product purchased).
 
 **Technologies Used**
   - Python 3.x
