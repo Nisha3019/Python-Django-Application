@@ -26,19 +26,20 @@ Before proceeding, make sure to installed the following :
 7. Open a browser and navigate to http://127.0.0.1:8000/ to view the application.
 
 **Functionality**
-**Customer & Product Models**
+
+  **Customer & Product Models**
   - Create, Read, Update, and Delete (CRUD) operations for customer and product entries.
   - Each model contains essential fields (e.g., customer name, city, country, description, price for products, and product name, contact info for customers).
 
-**Search or Filter**
+  **Search or Filter**
   - Easily search for customers or products based on their attributes (e.g., product name, customer name, city, country).
   - Filter products based on categories or price ranges.
 
-**Visualizations**
+  **Visualizations**
   -Visual graphs and charts to analyze customer and product data (e.g., annual sales, order placed, product purchased).
 
 **Technologies Used**
-Python 3.x
-Django
-SQLite (or any other database)
-Plotly for visualizations
+  - Python 3.x
+  - Django
+  - SQLite (or any other database)
+  - Plotly for visualizations
